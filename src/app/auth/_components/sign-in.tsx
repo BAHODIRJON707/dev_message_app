@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useAuth } from '@/hooks/use-Auth'
 import { emailSchema } from '@/lib/validation'
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
@@ -8,6 +9,8 @@ import { useForm } from 'react-hook-form'
 import z from 'zod'
 
 const SignIn = () => {
+  const {setEmail, setStep} = useAuth()
+
   const form = useForm<z.infer<typeof emailSchema>>({
     resolver: zodResolver(emailSchema),
     defaultValues:{
@@ -17,6 +20,10 @@ const SignIn = () => {
 
   function onSubmit(values:z.infer<typeof emailSchema>){
     console.log(values)
+    // API call to send email
+    setStep('verify')
+    setEmail(values.email)
+    
   }
   return (
     <>
@@ -38,7 +45,7 @@ const SignIn = () => {
             </FormItem>
           )}
           />
-          <Button type='submit' className='w-full'>Login</Button>
+          <Button type='submit' className='w-full'>Submit</Button>
         </form>
       </Form>
     </>
