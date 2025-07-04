@@ -26,7 +26,14 @@ const Home = () => {
             </Avatar>
             <div className={`size-3 absolute rounded-full bottom-0 right-0 ${contact.status==='online' ? 'bg-green-500':'bg-green-50'}`}></div>
           </div>
+          <div>
+            <h2 className='capitalize line-clamp-1 text-sm'>{contact.email.split('@')[0]}</h2>
+            <p className='text-xs line-clamp-1 text-muted-foreground'>No message yet</p>
+          </div>
         </div>
+          <div className="self-end">
+            <p className="text-xs text-muted-foreground">12:21</p>
+          </div>
       </div>
       )
     }
@@ -45,7 +52,9 @@ const Home = () => {
           <p>Contact list empty</p>
         </div>
       )}
-    {contacts.map(contact=>renderContact(contact))}
+    {contacts.map(contact=>(
+      <div key={contact._id}>{renderContact(contact)}</div>
+    ))}
     </div>
     {/* Chat area */}
     </>
