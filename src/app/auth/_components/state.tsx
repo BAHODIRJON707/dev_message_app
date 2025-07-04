@@ -1,11 +1,15 @@
 'use client'
 
+import { useAuth } from "@/hooks/use-Auth"
 import SignIn from "./sign-in"
+import Verify from "./verify"
 
 const StateAuth = () => {
+  const {step} = useAuth()
   return (
     <>
-      <SignIn/>
+    {step === 'login' && <SignIn />}
+    {step === 'verify' &&<Verify />}
     </>
   )
 }
